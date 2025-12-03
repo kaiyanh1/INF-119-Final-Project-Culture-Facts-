@@ -1,5 +1,5 @@
+import os
 import culture_service
-
 
 def display_menu():
     print("\nCulture Facts App")
@@ -8,7 +8,6 @@ def display_menu():
     print("3. Get a random cultural fact")
     print("4. Get details about a culture")
     print("5. Quit")
-
 
 def main():
     while True:
@@ -22,7 +21,7 @@ def main():
                 for culture in cultures:
                     print(f"- {culture}")
             else:
-                print("No cultures found.")
+                print("Error: Could not retrieve cultures.")
 
         elif choice == '2':
             name = input("Enter the name of the culture to search for: ")
@@ -39,10 +38,10 @@ def main():
             if fact:
                 print(f"\nRandom Cultural Fact: {fact}")
             else:
-                print("No facts available.")
+                print("Error: Could not retrieve a random fact.")
 
         elif choice == '4':
-            name = input("Enter the name of the culture to get details about: ")
+            name = input("Enter the name of the culture to get details for: ")
             details = culture_service.get_details(name)
             if details:
                 print(f"\nDetails for {details['name']}:")
@@ -58,12 +57,11 @@ def main():
                 print("Culture not found.")
 
         elif choice == '5':
-            print("Goodbye!")
+            print("Exiting Culture Facts App. Goodbye!")
             break
 
         else:
             print("Invalid choice. Please try again.")
-
 
 if __name__ == "__main__":
     main()
