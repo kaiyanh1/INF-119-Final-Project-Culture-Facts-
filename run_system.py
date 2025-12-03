@@ -1,25 +1,20 @@
-"""Starter code"""
-# Author: (Your Name) - Student ID: XXXXXXX
+# Author: Your Name - Student ID: XXXXXXX
 
-from mcp_server.server import MCPServer
-from agents.architect_agent import ArchitectAgent
-from agents.coder_agent import CoderAgent
-from agents.tester_agent import TesterAgent
 from core.orchestrator import Orchestrator
+from mcp_server.server import MCPServer
 
-def run_system(requirements):
-    server = MCPServer()
-
-    architect = ArchitectAgent(model="fake-llm")
-    coder = CoderAgent(model="fake-llm", mcp_server=server)
-    tester = TesterAgent(model="fake-llm", mcp_server=server)
-
-    orchestrator = Orchestrator(architect, coder, tester)
-
+def run_system(requirements: str):
+    """
+    High-level entry point for running the whole system from GUI.
+    """
+    orchestrator = Orchestrator(model_name="gpt-4o-mini")
     result = orchestrator.build_app(requirements)
 
+    # After build, we want to get usage report from MCP tools
+    server = orchestrator.server
     usage = server.call_tool("get_usage")
+
     return {
-        "result": result,
-        "usage": usage
+        "build": result,
+        "usage": usage,
     }
