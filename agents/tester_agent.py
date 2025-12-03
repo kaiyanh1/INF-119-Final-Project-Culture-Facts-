@@ -1,27 +1,20 @@
 """Starter code"""
 # Author: (Your Name) - Student ID: XXXXXXX
 
-from core.usage_tracker import usage_tracker
-
 class TesterAgent:
 
-    def __init__(self, model, mcp_server):
-        self.model = model
+    def __init__(self, model, mcp_server, name="tester_agent"):
+        self.llm = LLMClient(model, name)
         self.server = mcp_server
-        self.name = "tester_agent"
 
-    def generate_tests(self):
-        """
-        Use the LLM to generate at least 10 test cases.
-        """
+    def generate_tests(self, structure_summary):
+        prompt = open("prompts/tester_prompt.txt").read()
+        prompt = prompt.replace("<<< GENERATED_CODE_STRUCTURE >>>", structure_summary)
 
-        usage_tracker.record(self.name, 200)
+        result = self.llm.ask(prompt)
+        test_files = json.loads(result)["files"]
 
-        test_code = """
-def test_placeholder():
-    assert True
-"""
-        self.server.call_tool("write_file", path="tests/test_sample.py", content=test_code)
+        for path, content in test_files.items():
+            self.server.call_tool("write_file", path=path, content=content)
 
-        return {"status": "tests_generated"}
-
+        return {"status": "tests_written"}
