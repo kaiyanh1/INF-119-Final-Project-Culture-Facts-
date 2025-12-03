@@ -1,18 +1,18 @@
 This project implements a complete **multi-agent system** using **Google Gemini** and a custom **MCP (Model Context Protocol) server** to automatically generate:
 
-- The full Culture Facts application code  
-- At least 10 pytest test cases (≥ 8 tests must pass)  
-- A model usage tracking report  
-- A GUI for input and execution  
+- The full Culture Facts application code (15-20 cultures)
+- At least 10 pytest test cases (≥ 8 tests must pass)
+- A model usage tracking report
+- A GUI for input and execution
 
 The system satisfies all project requirements:
-- Multi-agent design  
-- MCP integration (file I/O, test runner, usage tracking)  
-- GUI input  
-- Automatic code generation  
-- Automatic test generation  
-- Usage tracking JSON  
-- Fully runnable by following the instructions in this README  
+- Multi-agent design
+- MCP integration (file I/O, test runner, usage tracking)
+- GUI input
+- Automatic code generation
+- Automatic test generation
+- Usage tracking JSON
+- Fully runnable by following the instructions in this README
 
 ---
 
@@ -83,97 +83,30 @@ All generated files (main.py, culture_service.py, tests, JSON data) will be plac
 
 ---
 
-# 4. How to Run the Program (TA Instructions)
+# 4. How to Run
 
-These steps are **all the TA needs** to run the entire system.
+1. Clone the repository and install dependencies (see sections 1-2 above)
+2. Set your Gemini API key (see section 2)
+3. Start the GUI:
+   ```bash
+   python gui/app.py
+   ```
+4. Open `http://127.0.0.1:5000` in your browser
+5. Paste Culture Facts requirements and click **Generate App**
+
+The system runs 3 agents:
+- **Architect Agent** → Generates full code plan (JSON with 15-20 cultures)
+- **Coder Agent** → Writes files into `generated_app/` via MCP
+- **Tester Agent** → Generates ≥10 pytest tests via MCP
+
+The GUI displays generated files, test results, and usage tracking JSON.
 
 ---
 
-## STEP 1 — Clone Repository
+# 5. Running Generated Tests
 
 ```bash
-git clone <YOUR_REPO_URL>
-cd ai-coder-culture-facts
-```
-
----
-
-## STEP 2 — Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## STEP 3 — Set Gemini API Key
-
-```bash
-export GEMINI_API_KEY="YOUR_API_KEY_HERE"
-```
-
-Windows:
-
-```powershell
-$env:GEMINI_API_KEY="YOUR_API_KEY_HERE"
-```
-
----
-
-## STEP 4 — Start GUI
-
-```bash
-python gui/app.py
-```
-
-Open your browser:
-
-```
-http://127.0.0.1:5000
-```
-
----
-
-## STEP 5 — Generate the Culture Facts Application
-
-Inside the GUI:
-
-1. Paste the Culture Facts requirements (any text or language).
-2. Click **Generate App**.
-3. The system will run all 3 agents:
-   - **Architect Agent** → Generates full code plan (JSON)
-   - **Coder Agent** → Writes files into `generated_app/`
-   - **Tester Agent** → Generates ≥10 pytest tests
-4. The GUI will show:
-   - Generated file list
-   - Test generation result
-   - Model usage tracking JSON
-
-Example output in browser:
-
-```
-{
-  "result": {
-    "plan_files": [...],
-    "code": {...},
-    "tests": {...}
-  },
-  "usage": {
-    "architect_agent": {...},
-    "coder_agent": {...},
-    "tester_agent": {...}
-  }
-}
-```
-
----
-
-# 5. Running the Generated Tests
-
-After generating the app, run:
-
-```bash
-python run_tests.py
+python run_test.py
 ```
 
 OR manually:
@@ -183,14 +116,11 @@ cd generated_app
 pytest
 ```
 
-You will see:
-
-- At least 10 tests
-- At least 8 passing tests (required by assignment)
+Expected: At least 10 tests with ≥8 passing.
 
 ---
 
-# 6. MCP Server Tools (Important for Grading)
+# 6. MCP Server Tools
 
 Our custom MCP server exposes the following tools:
 
@@ -209,68 +139,30 @@ Agents do **not** perform file I/O directly — they must call MCP tools, fulfil
 
 | Agent | Model | Responsibilities |
 |--------|-------------|----------------|
-| **ArchitectAgent** | gemini-1.5-flash | Generates complete file contents in a JSON spec (main.py, culture_service.py, JSON data) |
+| **ArchitectAgent** | gemini-1.5-flash | Generates complete file contents in a JSON spec (main.py, culture_service.py, cultures.json with 15-20 cultures) |
 | **CoderAgent** | gemini-1.5-flash | Uses MCP `write_file` tool to write files to disk |
 | **TesterAgent** | gemini-1.5-flash | Generates ≥10 pytest test cases and writes them via MCP |
 
-Agents communicate only through MCP tools.  
-This satisfies the assignment’s multi-agent + MCP communication requirements.
+Agents communicate only through MCP tools. This satisfies the assignment's multi-agent + MCP communication requirements.
 
 ---
 
 # 8. Model Usage Tracking
 
-We track:
-
-- Number of API calls per agent  
-- Total estimated tokens per agent  
-
-Data appears in the GUI after every build:
-
-```
-{
-  "architect_agent": { "numApiCalls": X, "totalTokens": Y },
-  "coder_agent": { "numApiCalls": X, "totalTokens": Y },
-  "tester_agent": { "numApiCalls": X, "totalTokens": Y }
-}
-```
-
-Tracking is implemented in `usage_tracker.py`.
+We track number of API calls and total estimated tokens per agent. Data appears in the GUI after every build as JSON. Tracking is implemented in `usage_tracker.py`.
 
 ---
 
 # 9. Output Location
 
-The generated Culture Facts application will appear inside:
+The generated Culture Facts application appears in `generated_app/`:
+- `main.py` - Terminal UI application
+- `culture_service.py` - Core service functions
+- `data/cultures.json` - Culture data (15-20 cultures)
+- `tests/test_culture_service.py` - Pytest test suite
 
-```
-generated_app/
-    main.py
-    culture_service.py
-    data/cultures.json
-    tests/test_culture_service.py
-```
-
-The TA can run the app directly:
-
+Run the app:
 ```bash
 cd generated_app
 python main.py
 ```
-
----
-
-# 10. Summary
-
-This system provides:
-
-- Multi-agent architecture (Architect, Coder, Tester)
-- Gemini LLM integration
-- Custom MCP server with tools
-- GUI interface
-- Automatic code generation
-- Automatic test generation
-- Usage tracking
-- Fully runnable output application
-
-

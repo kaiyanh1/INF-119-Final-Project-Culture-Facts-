@@ -16,7 +16,9 @@ Requirements:
 - JSON data file
 - Functions: list_cultures, search_culture, get_random_fact, get_details
 - main.py must run: python main.py
-- data file must contain at least 5 cultures
+- data file must contain at least 15-20 diverse cultures from different regions around the world
+- Each culture should have: name, region, description, facts (at least 3), and traditions (at least 3)
+- Include cultures from: Asia, Africa, Europe, Americas, Middle East, Oceania
 - Respond ONLY in JSON:
 {
   "files": {
