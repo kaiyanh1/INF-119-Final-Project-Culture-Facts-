@@ -1,44 +1,36 @@
 # Author: Your Name - Student ID: XXXXXXX
 
 import os
-from openai import OpenAI
+import google.generativeai as genai
 from core.usage_tracker import usage_tracker
 
-# Create a single shared OpenAI client
-_client = OpenAI(
-    api_key=os.environ.get("OPENAI_API_KEY")
-)
+# Initialize Gemini
+genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+
 
 class LLMClient:
     """
-    Simple wrapper around OpenAI chat.completions API
-    that also records token usage.
+    Wrapper for Gemini API.
     """
 
-    def __init__(self, model_name: str, agent_name: str):
+    def __init__(self, model_name, agent_name):
         self.model_name = model_name
         self.agent_name = agent_name
+        self.model = genai.GenerativeModel(model_name)
 
     def ask(self, system_prompt: str, user_prompt: str) -> str:
         """
-        Send a prompt to the model and return the text content.
+        Send prompt to Gemini and return output text.
         """
-        response = _client.chat.completions.create(
-            model=self.model_name,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-            temperature=0.2,
+        response = self.model.generate_content(
+            [
+                {"role": "system", "parts": system_prompt},
+                {"role": "user", "parts": user_prompt},
+            ]
         )
 
-        # Record token usage
-        if response.usage is not None:
-            total_tokens = response.usage.total_tokens
-        else:
-            total_tokens = 0
+        text = response.text
 
-        usage_tracker.record(self.agent_name, total_tokens)
+        usage_tracker.record(self.agent_name, len(text.split()))
 
-        content = response.choices[0].message.content
-        return content
+        return text
