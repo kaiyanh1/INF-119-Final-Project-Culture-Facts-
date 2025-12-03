@@ -1,29 +1,17 @@
 """Starter code"""
 # Author: (Your Name) - Student ID: XXXXXXX
 
-from core.usage_tracker import usage_tracker
+import json
+from core.llm_client import LLMClient
 
 class ArchitectAgent:
 
-    def __init__(self, model):
-        self.model = model
-        self.name = "architect_agent"
+    def __init__(self, model="gpt-4o", name="architect_agent"):
+        self.llm = LLMClient(model, name)
 
-    def analyze_requirements(self, text):
-        """
-        Here you will use the LLM to produce:
-        - file structure
-        - module plan
-        - functions needed
-        """
-        # TODO: replace with actual LLM call
-        usage_tracker.record(self.name, 150)
+    def analyze_requirements(self, requirements):
+        prompt = open("prompts/architect_prompt.txt").read()
+        prompt = prompt.replace("<<< USER_REQUIREMENTS >>>", requirements)
 
-        return {
-            "files": {
-                "main.py": "### main file template ###",
-                "culture_service.py": "### service template ###",
-                "data/cultures.json": "### data placeholder ###"
-            }
-        }
-
+        result = self.llm.ask(prompt)
+        return json.loads(result)
