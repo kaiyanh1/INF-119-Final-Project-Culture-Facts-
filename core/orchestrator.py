@@ -12,23 +12,23 @@ class Orchestrator:
     - CoderAgent: write code files
     - TesterAgent: generate tests
     """
-
-    def __init__(self, model_name: str = "gpt-4o-mini"):
+    
+    def __init__(self, model_name="gemini-1.5-flash"):
         self.server = MCPServer()
         self.architect = ArchitectAgent(model_name=model_name)
         self.coder = CoderAgent(self.server)
         self.tester = TesterAgent(self.server, model_name=model_name)
 
-    def build_app(self, requirements: str) -> dict:
+    def build_app(self, requirements):
         """
         Run the full pipeline: plan -> code -> tests.
         """
         plan = self.architect.analyze_requirements(requirements)
-        code_result = self.coder.generate_code(plan)
-        test_result = self.tester.generate_tests()
+        code = self.coder.generate_code(plan)
+        tests = self.tester.generate_tests()
 
         return {
-            "plan_files": list(plan.get("files", {}).keys()),
-            "code_result": code_result,
-            "test_result": test_result,
+            "plan_files": list(plan["files"].keys()),
+            "code": code,
+            "tests": tests
         }
