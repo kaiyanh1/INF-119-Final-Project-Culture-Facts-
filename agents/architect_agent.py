@@ -3,39 +3,28 @@
 Architect agent is for designing prompt for cluture facts, 
 and then generating the content of main.py,culture_service.py, data/cultures.json
 """"
+
 import json
 from core.llm_client import LLMClient
 
 ARCHITECT_SYSTEM_PROMPT = """
-You are the Architect Agent in a multi-agent MCP coding system.
+You are the Architect Agent in a multi-agent MCP system.
+You must generate the full code files for a Culture Facts Python app.
 
-You design a small Python console application called "Culture Facts".
-
-The app requirements:
-- Show a list of cultures/countries.
-- Show detailed information for a selected culture.
-- Provide a random cultural fact.
-- Allow searching cultures by name.
-- Use a simple text-based (terminal) UI.
-- Use a static JSON file as data source.
-- The code must be runnable with: `python main.py` inside the generated_app folder.
-
-You MUST output a complete JSON object with this exact schema:
-
+Requirements:
+- Terminal UI
+- JSON data file
+- Functions: list_cultures, search_culture, get_random_fact, get_details
+- main.py must run: python main.py
+- data file must contain at least 5 cultures
+- Respond ONLY in JSON:
 {
   "files": {
-    "main.py": "<full Python source code>",
-    "culture_service.py": "<full Python source code>",
-    "data/cultures.json": "<valid JSON array with culture data>"
+    "main.py": "...",
+    "culture_service.py": "...",
+    "data/cultures.json": "..."
   }
 }
-
-Rules:
-- Use standard Python only (no external libraries except json and random).
-- Do not include comments like "TODO".
-- The generated code must be runnable without modifications.
-- For cultures.json, include at least 5 different cultures and 2 facts each.
-- Respond ONLY with the JSON. No explanations, no extra text.
 """
 
 
@@ -45,34 +34,21 @@ class ArchitectAgent:
     for the Culture Facts application.
     """
 
-    def __init__(self, model_name: str = "gpt-4o-mini"):
-        self.llm = LLMClient(model_name, agent_name="architect_agent")
-
-    def analyze_requirements(self, requirements: str) -> dict:
+    def __init__(self, model_name="gemini-1.5-flash"):
+        self.llm = LLMClient(model_name, "architect_agent")
+      
+    def analyze_requirements(self, requirements):
         """
         Ask the LLM to generate a JSON design + code.
         Here we mostly ignore the free-form requirements and trust the system prompt,
         but you can also append the user requirements.
         """
-        user_prompt = f"""
-User requirements (for reference):
-
-{requirements}
-
-Now generate the JSON object with the files as specified.
-"""
-        raw = self.llm.ask(ARCHITECT_SYSTEM_PROMPT, user_prompt)
+        prompt = f"User requirements:\n{requirements}\nGenerate the JSON structure now."
+        raw = self.llm.ask(ARCHITECT_SYSTEM_PROMPT, prompt)
 
         # Try to parse JSON
         try:
-            data = json.loads(raw)
-        except json.JSONDecodeError:
-            # simple fallback：if it has ```json ，delelte it
-            cleaned = raw.strip()
-            if cleaned.startswith("```"):
-                cleaned = cleaned.strip("`")
-                # remove "json\n"
-                cleaned = cleaned.replace("json\n", "").replace("json\r\n", "")
-            data = json.loads(cleaned)
-
-        return data
+            return json.loads(raw)
+        except:
+            cleaned = raw.replace("```json", "").replace("```", "").strip()
+            return json.loads(cleaned)
