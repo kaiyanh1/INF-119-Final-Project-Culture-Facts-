@@ -213,6 +213,3 @@ If tests fail, you can regenerate or manually check `generated_app/` files.
 
 ---
 
-## Author
-
-Your Name - Student ID: XXXXXXX
