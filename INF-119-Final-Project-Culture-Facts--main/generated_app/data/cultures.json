@@ -103,5 +103,20 @@
       "Banya (traditional sauna)",
       "New Year's celebrations with Ded Moroz (Grandfather Frost)"
     ]
+  },
+    "Mexican": {
+    "name": "Mexican",
+    "region": "North America",
+    "description": "Mexican culture is known for its vibrant traditions, flavorful cuisine, and strong sense of community.",
+    "facts": [
+      "Mexico is home to 35 UNESCO World Heritage Sites.",
+      "Mexican cuisine is recognized as an Intangible Cultural Heritage by UNESCO.",
+      "The Aztecs and Mayans made significant contributions to art, science, and agriculture."
+    ],
+    "traditions": [
+      "Día de los Muertos (Day of the Dead)",
+      "Las Posadas (Christmas tradition)",
+      "Piñata celebrations"
+    ]
   }
 }
