@@ -1,80 +1,95 @@
-[
-  {
+{
+  "Japanese": {
     "name": "Japanese",
     "region": "East Asia",
-    "description": "Known for its rich history, unique art forms, and technological advancements.",
+    "description": "Japanese culture is known for its art forms, cuisine, and traditions.",
     "facts": [
-      "The literacy rate in Japan is almost 100%.",
-      "Eating noodles on New Year's Eve is believed to bring longevity in Japan.",
-      "Capsule hotels were invented in Japan."
+      "Bowing is a common greeting and shows respect.",
+      "Tea ceremonies are an important part of Japanese culture.",
+      "Karaoke is a popular form of entertainment."
     ],
     "traditions": [
       "Hanami (cherry blossom viewing)",
-      "Tea ceremony",
-      "Shodo (calligraphy)"
+      "Shichi-Go-San (celebration for children turning 3, 5, and 7)",
+      "Obon (festival of the dead)"
     ]
   },
-  {
+  "Indian": {
     "name": "Indian",
     "region": "South Asia",
-    "description": "Characterized by its diverse languages, religions, and vibrant traditions.",
+    "description": "Indian culture is diverse and rich in traditions, languages, and religions.",
     "facts": [
-      "India is the world's largest democracy.",
-      "The game of snakes and ladders originated in India.",
-      "India is the world's second-largest English-speaking country."
+      "Cricket is a very popular sport in India.",
+      "Diwali, the festival of lights, is a major celebration.",
+      "The Taj Mahal is a famous landmark and symbol of love."
     ],
     "traditions": [
-      "Diwali (festival of lights)",
       "Holi (festival of colors)",
-      "Weddings with elaborate rituals"
+      "Raksha Bandhan (festival celebrating the bond between siblings)",
+      "Dussehra (celebration of the victory of good over evil)"
     ]
   },
-  {
-    "name": "Brazilian",
-    "region": "South America",
-    "description": "Famous for its vibrant music, dance, and passionate football culture.",
-    "facts": [
-      "Brazil is the largest country in South America.",
-      "Carnival in Rio de Janeiro is one of the world's biggest parties.",
-      "Brazil is the world's leading exporter of coffee."
-    ],
-    "traditions": [
-      "Carnival",
-      "Samba dance",
-      "Feijoada (black bean stew)"
-    ]
-  },
-  {
-    "name": "Egyptian",
-    "region": "North Africa",
-    "description": "Home to ancient monuments, pharaohs, and a rich mythological history.",
-    "facts": [
-      "The Great Pyramid of Giza is the oldest and largest of the Giza pyramid complex.",
-      "Ancient Egyptians used makeup for protection and beauty.",
-      "Cats were considered sacred animals in ancient Egypt."
-    ],
-    "traditions": [
-      "Ramadan",
-      "Eid al-Fitr",
-      "Sham el-Nessim (spring festival)"
-    ]
-  },
-  {
+  "Nigerian": {
     "name": "Nigerian",
     "region": "West Africa",
-    "description": "Known for its diverse ethnic groups, languages, and vibrant arts scene.",
+    "description": "Nigerian culture is diverse, with many ethnic groups and languages.",
     "facts": [
-      "Nigeria is the most populous country in Africa.",
-      "Nollywood is the second-largest film industry in the world.",
-      "Nigeria has over 500 different languages."
+      "Nollywood is the Nigerian film industry, one of the largest in the world.",
+      "Jollof rice is a popular dish in Nigeria and West Africa.",
+      "Traditional clothing is often colorful and vibrant."
     ],
     "traditions": [
-      "Durbar festival",
-      "Iri-Ji New Yam Festival",
-      "Igbo masquerade festivals"
+      "Igue Festival (celebration of the Oba of Benin)",
+      "Argungu Fishing Festival",
+      "New Yam Festival"
     ]
   },
-  {
+  "Brazilian": {
+    "name": "Brazilian",
+    "region": "South America",
+    "description": "Brazilian culture is vibrant, known for its music, dance, and festivals.",
+    "facts": [
+      "Football (soccer) is the most popular sport in Brazil.",
+      "Carnaval is a major annual festival with music, parades, and dancing.",
+      "Samba is a famous Brazilian dance and music genre."
+    ],
+    "traditions": [
+      "Festa Junina (June Festival)",
+      "Candomblé (Afro-Brazilian religion)",
+      "Capoeira (Afro-Brazilian martial art)"
+    ]
+  },
+  "Italian": {
+    "name": "Italian",
+    "region": "Southern Europe",
+    "description": "Italian culture is known for its cuisine, art, fashion, and architecture.",
+    "facts": [
+      "Pasta and pizza are famous Italian dishes.",
+      "Italy is home to many historical landmarks, including the Colosseum.",
+      "Fashion is an important aspect of Italian culture."
+    ],
+    "traditions": [
+      "Ferragosto (August holiday)",
+      "La Befana (Epiphany celebration)",
+      "Palio di Siena (horse race)"
+    ]
+  },
+  "Egyptian": {
+    "name": "Egyptian",
+    "region": "North Africa",
+    "description": "Egyptian culture is one of the oldest civilizations, known for its pharaohs, pyramids, and ancient history.",
+    "facts": [
+      "The pyramids of Giza are iconic landmarks.",
+      "Hieroglyphics are an ancient form of writing.",
+      "The Nile River is vital to Egypt's agriculture and history."
+    ],
+    "traditions": [
+      "Sham el-Nessim (spring festival)",
+      "Eid al-Fitr (end of Ramadan)",
+      "Moulid al-Nabi (Prophet Muhammad's birthday)"
+    ]
+  },
+  "Russian": {
     "name": "Russian",
     "region": "Eastern Europe & Eurasia",
     "description": "A culture known for its deep literary traditions, historical complexity, distinctive cuisine, and strong emphasis on community and hospitality.",
@@ -89,4 +104,4 @@
       "New Year's celebrations with Ded Moroz (Grandfather Frost)"
     ]
   }
-]
+}
